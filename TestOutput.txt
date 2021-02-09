@@ -1,0 +1,37 @@
+Enter exename, dataFileName and IndexFileName respectively, seperate by space
+ ? Assign8 accounts.dat accounts.idx
+Enter your choice:
+   1 to display in Natural order.
+   2 to display  Account Balance Descending order.
+   3 to exit.
+? 1
+Data File Read in Natural Order:
+
+Account number      First Name          Last Name           Balance             Payment Amount
+---------------------------------------------------------------------------------------------------
+1001                Kramer              Cosmo               5827.00             0.48
+201012              Hidari              Shotaro             3.00                2.00
+202012              Sonozaki            Phillip             3.00                2.00
+0                   Hino                Eiji                0.00                0.00
+2213                Kisaragi            Gentaro             4444.44             48.00
+2314                Soma                Haruto              5320.13             120.12
+2415                Kazuraba            Kouta               1006.47             928.08
+2516                Tomari              Shinnosuke          4861.49             48.79
+2617                Tenkuji             Takeru              151515.15           50.57
+27180               Hojo                Emu                 999999.99           12345.50
+? 2
+Data File Read in Indexed Order (Balance)
+
+Account number      First Name          Last Name           Balance             Payment Amount
+---------------------------------------------------------------------------------------------------
+0                   Hino                Eiji                0.00                0.00
+202012              Sonozaki            Phillip             3.00                2.00
+201012              Hidari              Shotaro             3.00                2.00
+2415                Kazuraba            Kouta               1006.47             928.08
+2213                Kisaragi            Gentaro             4444.44             48.00
+2516                Tomari              Shinnosuke          4861.49             48.79
+2314                Soma                Haruto              5320.13             120.12
+1001                Kramer              Cosmo               5827.00             0.48
+2617                Tenkuji             Takeru              151515.15           50.57
+27180               Hojo                Emu                 999999.99           12345.50
+?
