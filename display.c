@@ -6,51 +6,28 @@
 
 long fileSize(FILE* input); //computes file size
 void instructions(void);
-void balanceDescendingOrder(FILE *fpData);
-void naturalOrder(FILE *fpData);
+void balanceDescendingOrder(FILE* fpData);
+void naturalOrder(FILE* fpData);
+void checkArgs(int);
+void checkInputFile(char* File);
+void checkOutputFile(char* File);
 
 
 
 
-int main(void)
+
+int main(int argc, char* argv[])
 {
 
 	FILE* fpData;
 
-	char indexName[15];
-	char exeName[15];
-	char datName[15];
 
 
-	void(*pfunc[2]) (FILE *fpData);//defines a function pointer
+	void(*pfunc[2]) (FILE * fpData);//defines a function pointer
 
 // assign a function name to each of the function pointers in the array of function pointers
 	pfunc[0] = naturalOrder;
 	pfunc[1] = balanceDescendingOrder;
-
-
-	printf("%s", "Enter exename, dataFileName and IndexFileName respectively, seperate by space\n ? ");
-	scanf("\n%s%s%s", exeName, datName, indexName);
-
-	if (strcmp(exeName, APP_NAME) != 0) {
-		printf("Error opening the file : No such exe file or directory\n");
-		return 1;
-	}
-
-	if (strcmp(datName, "accounts.dat") != 0)
-	{
-		printf("Error opening the file : No such dat file or directory\n");
-		return 1;
-	}
-
-	if (strcmp(indexName, "accounts.idx") != 0)
-	{
-		printf("Error opening the file : No such idx file or directory\n");
-		return 1;
-	}
-
-	else
-	{
 
 		instructions(); // display the menu
 		unsigned int choice; // user's choice
@@ -85,11 +62,10 @@ int main(void)
 		} while (!timeToExit);
 
 		puts("End of run.");
-	}
-
-	_getch();
-	return 0;
+		_getch();
+		return 0;
 }
+
 
 
 // display program instructions to user
@@ -104,7 +80,7 @@ void instructions(void)
 }
 
 
-void balanceDescendingOrder(FILE *fpData)
+void balanceDescendingOrder(FILE* fpData)
 {
 	FILE* fpIndexBalance;
 	int		recCount;
@@ -189,7 +165,7 @@ void balanceDescendingOrder(FILE *fpData)
 
 }
 
-long fileSize(FILE *input)
+long fileSize(FILE* input)
 {
 	long orgPos;
 	long startPos;
@@ -206,7 +182,7 @@ long fileSize(FILE *input)
 }
 
 
-void naturalOrder(FILE *fpData)
+void naturalOrder(FILE* fpData)
 {
 	ClientData client = { 0, "", "", 0.0, 0.0 }; //create client data with default 
 
@@ -230,4 +206,55 @@ void naturalOrder(FILE *fpData)
 	}
 
 	fclose(fpData);
+}
+//Check number of command line arguments
+void checkArgs(int iNumber)
+{
+	if (iNumber < 3)
+	{
+		printf("There are too few arguments.\n");
+		exit(EXIT_FAILURE);
+	}
+
+	if (iNumber > 3)
+	{
+		printf("There are too many arguments.\n");
+		exit(EXIT_FAILURE);
+	}
+}
+
+// Check if input file exists
+void checkInputFile(char* sFileName)
+{
+	if ((fInputPtr = fopen(sFileName, "rb")) == NULL)
+	{
+		printf("%s could not be opened.\n", sFileName);
+		exit(EXIT_FAILURE);
+	}
+}
+
+// Check if output file exists
+void checkOutputFile(char* sFileName)
+{
+	if ((fIndexPtr = fopen(sFileName, "wb")) == NULL)
+	{
+		printf("%s could not be opened.\n", sFileName);
+		exit(EXIT_FAILURE);
+	}
+}
+
+
+// Write the index header to file
+void createIndexHeader(int dataRecordCount)
+{
+	IndexHeader	 indexHeader;
+
+	// populate index header record
+	indexKey = BALANCE;//sort index file on balance
+	indexHeader.idxKey = indexKey;
+	strcpy(indexHeader.appName, APP_NAME);
+	indexHeader.recCount = dataRecordCount;
+
+	// write Index Header to file
+	fwrite(&indexHeader, sizeof(IndexHeader), 1, fIndexPtr);
 }

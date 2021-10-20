@@ -1,3 +1,4 @@
+#pragma once
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <stdio.h>
@@ -7,6 +8,9 @@
 
 #define APP_NAME "Assign8"
 #define NAME_LENGTH 15
+
+FILE* fInputPtr;
+FILE* fIndexPtr;
 
 typedef enum { ACCOUNT, FIRST, LAST, BALANCE, PAYMENT } IndexKey;
 
@@ -22,9 +26,9 @@ typedef union
 typedef struct
 {
 	int acctNum;
-	char lastName[NAME_LENGTH];
 	char firstName[NAME_LENGTH];
-	double balance;
+	char lastName[NAME_LENGTH];
+    double balance;
 	double lastPaymentAmount;
 } ClientData;
 
